@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Map Clustering</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="hybrid">Vista Hibrida</string>
+    <string name="normal">Vista Normal</string>
+    <string name="satellite">Vista Satélite</string>
+    <string name="traffic">Visualizar Tráfico</string>
+    <string name="tipificacion">Mis carreteras</string>
+    <string name="map_not_ready">Map is not ready yet</string>
+
+    <string name="google_maps_key">AIzaSyCv0WyY-O9spUrI7EQAmxVA12DFn-eAva8</string>
+    <string name="title_menu">Menu</string>
+    <string name="btn_map">Recorridos</string>
+    <string name="btn_map2">Otro</string>
+
+    <string-array name="layers_array">
+    <item>@string/satellite</item>
+    </string-array>
+
+</resources>
