@@ -152,5 +152,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int i = 0; i < recorridos.size(); i++) {
             recorridos.get(i).setVisible(visible);
         }
+        //
     }
 }
