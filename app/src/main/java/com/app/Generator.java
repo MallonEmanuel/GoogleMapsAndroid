@@ -29,7 +29,9 @@ public class Generator {
         for(int i = 0 ; i < data.getRecorridos().size(); i++){ // Para cada recorrido
             String descripcion = data.getDescripciones().get(i); // Se setea la informacion del recorrido
             Recorrido recorrido = new Recorrido(descripcion);
-            int color = RandomColor.get(); // Se selecciona un color al azar.
+            int color = data.getColores().get(i);
+            // int color = RandomColor.get(); // Se selecciona un color al azar.
+
             //Se generan los tramos del recorrido, todos con el mismo color y descripcion.
             recorrido.setTramos(getTramos(mMap,data.getRecorridos().get(i),descripcion,color));
             // Se agrega el recorrido recien generado a la lista de recorridos
@@ -66,16 +68,17 @@ public class Generator {
      */
     private static Polyline generatePolyline(GoogleMap mMap, String tramo, String info, int color){
         List<LatLng> decodedPath = PolyUtil.decode(tramo);
-        RoundCap roundCap =new RoundCap();
+        // RoundCap roundCap =new RoundCap();
         Polyline polyLine = mMap.addPolyline(new PolylineOptions()
                 .addAll(decodedPath)
-                .width(5)
+                .width(9)
+                .geodesic(true)
                 .color(color));
 
         polyLine.setJointType(JointType.ROUND);
         polyLine.setClickable(true);
-        polyLine.setStartCap(roundCap);
-        polyLine.setEndCap(roundCap);
+        // polyLine.setStartCap(roundCap);
+        //polyLine.setEndCap(roundCap);
         polyLine.setTag(info);
 
         return polyLine;

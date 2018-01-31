@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Polyline;
 
 import java.util.ArrayList;
@@ -33,11 +34,12 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
+
     private static final int LOCATION_REQUEST_CODE = 1;
     private CheckBox mTipificacionCheckbox;
     private Data data;
     private List<Recorrido> recorridos;
-
+    private TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,30 +48,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
         //inicializacion de clases auxiliares.
         data = new Data();
         recorridos = new ArrayList<>();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.layers_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mTipificacionCheckbox = (CheckBox) findViewById(R.id.tipificacion);
+        tv = (TextView) findViewById(R.id.info);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.setBuildingsEnabled(false);
+
+        MapStyleOptions style = MapStyleOptions.loadRawResourceStyle(
+                this, R.raw.style_json);
+        googleMap.setMapStyle(style);
+
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
+
             mMap.setMyLocationEnabled(true);
-            initMap();
+
+            // initMap();
+
         }else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
-                // Mostrar diálogo explicativo
+
                 Toast.makeText(this,"Instalar de nuevo la aplicación", Toast.LENGTH_SHORT).show();
             } else {
+
                 // Solicitar permiso
-                Toast toast1 = Toast.makeText(this,"Los permisos de ubicación, son indispensables, al rechazarlos ahora, no podrá activarlos después...", Toast.LENGTH_LONG);
+                Toast toast1 = Toast.makeText(this,"Los permisos de ubicación, son indispensables", Toast.LENGTH_LONG);
                 toast1.setGravity(Gravity.CENTER,0 , 330);
                 toast1.show();
                 ActivityCompat.requestPermissions(
@@ -88,6 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         initEvents();
         initRecorridos();
     }
+
     /** Se inicializan los eventos del mapa.*/
     private void initEvents(){
         mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
@@ -100,6 +116,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         type = polyline.getTag().toString();
                     }
 
+                    tv.setText(type);
+/*
                     Toast toast1 = new Toast(getApplicationContext());
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast_layout,
@@ -110,14 +128,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     toast1.setDuration(Toast.LENGTH_LONG);
                     toast1.setView(layout);
                     toast1.show();
+                  */
                 }
             }
         });
     }
+
     /** Se inicializan los recorridos del mapa. */
     private void initRecorridos(){
         recorridos = Generator.generateRecorridos(data,mMap);
-        verRecorridos(false);
+        //verRecorridos(false);
     }
 
     //Resultado de la solicitud de permisos
@@ -139,12 +159,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }// fin onRequestPermissionsResult
 
+
     /** Controla el evento del Toggle que muestra u oculta los recorridos*/
     public void onTipificacionToggled(View view) {
         if (mTipificacionCheckbox.isChecked()) {
-            verRecorridos(true);
+            //verRecorridos(true);
+
+            initMap();
         }else {
-            verRecorridos(false);
+            mMap.clear();
+            // verRecorridos(false);
         }
     }
     /** Muestra u oculta los recorridos.  */
@@ -152,6 +176,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int i = 0; i < recorridos.size(); i++) {
             recorridos.get(i).setVisible(visible);
         }
-        //
     }
 }
