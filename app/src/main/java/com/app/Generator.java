@@ -23,8 +23,8 @@ public class Generator {
      * @param mMap referencia al mapa google
      * @return una lista de recorridos
      */
-    public static List<Recorrido> generateRecorridos(Data data, GoogleMap mMap){
-        List<Recorrido> recorridos = new ArrayList<>();
+    public static DataSetRecorridos generateRecorridos(Data data, GoogleMap mMap){
+        DataSetRecorridos dataSetRecorridos = new DataSetRecorridos();
 
         for(int i = 0 ; i < data.getRecorridos().size(); i++){ // Para cada recorrido
             String descripcion = data.getDescripciones().get(i); // Se setea la informacion del recorrido
@@ -35,9 +35,9 @@ public class Generator {
             //Se generan los tramos del recorrido, todos con el mismo color y descripcion.
             recorrido.setTramos(getTramos(mMap,data.getRecorridos().get(i),descripcion,color));
             // Se agrega el recorrido recien generado a la lista de recorridos
-            recorridos.add(recorrido);
+            dataSetRecorridos.add(color,recorrido);
         }
-        return recorridos;
+        return dataSetRecorridos;
     }
 
     /**
@@ -84,4 +84,14 @@ public class Generator {
         return polyLine;
     }
 
+    public static ArrayList<LatLng> getAllPoints(Data data){
+        ArrayList<LatLng> list = new ArrayList<>();
+        for(int i = 0 ; i < data.getRecorridos().size(); i++){ // Para cada recorrido
+            for (int j = 0; j < data.getRecorridos().get(i).size(); j++) {
+                String tramo = (String) data.getRecorridos().get(i).get(j);
+                list.addAll(PolyUtil.decode(tramo));
+            }
+        }
+        return list;
+    }
 }

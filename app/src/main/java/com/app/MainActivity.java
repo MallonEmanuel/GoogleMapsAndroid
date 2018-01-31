@@ -33,8 +33,7 @@ public class MainActivity extends Activity {
         btnDos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Hacer algo.
-                viewActivity(MapsActivity2.class);
+                viewActivity(HeatmapsDemoActivity.class);
             }
         });
 

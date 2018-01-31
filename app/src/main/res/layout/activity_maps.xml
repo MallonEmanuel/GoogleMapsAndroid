@@ -73,42 +73,42 @@
                     android:textColor="@color/colorPrimaryDark" />
 
                 <CheckBox
-                    android:id="@+id/checkBox5"
+                    android:id="@+id/tipificacionB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:onClick="onTipificacionToggled"
+                    android:onClick="onTipificacionToggledB"
                     android:text="B"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <CheckBox
-                    android:id="@+id/checkBox7"
+                    android:id="@+id/tipificacionC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:onClick="onTipificacionToggled"
+                    android:onClick="onTipificacionToggledC"
                     android:text="C"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <CheckBox
-                    android:id="@+id/checkBox8"
+                    android:id="@+id/tipificacionD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:onClick="onTipificacionToggled"
+                    android:onClick="onTipificacionToggledD"
                     android:text="D"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <CheckBox
-                    android:id="@+id/checkBox9"
+                    android:id="@+id/tipificacionE"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:onClick="onTipificacionToggled"
+                    android:onClick="onTipificacionToggledE"
                     android:text="E"
                     android:textColor="@color/colorPrimaryDark" />
 

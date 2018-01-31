@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Polyline;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,8 +38,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private static final int LOCATION_REQUEST_CODE = 1;
     private CheckBox mTipificacionCheckbox;
+    private CheckBox mTipificacionCheckboxB;
+    private CheckBox mTipificacionCheckboxC;
+    private CheckBox mTipificacionCheckboxD;
+    private CheckBox mTipificacionCheckboxE;
     private Data data;
-    private List<Recorrido> recorridos;
+    private DataSetRecorridos recorridos;
     private TextView tv;
 
     @Override
@@ -51,9 +56,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         //inicializacion de clases auxiliares.
-        data = new Data();
-        recorridos = new ArrayList<>();
+        data = Data.getInstance();
         mTipificacionCheckbox = (CheckBox) findViewById(R.id.tipificacion);
+        mTipificacionCheckboxB = (CheckBox) findViewById(R.id.tipificacionB);
+        mTipificacionCheckboxC = (CheckBox) findViewById(R.id.tipificacionC);
+        mTipificacionCheckboxD = (CheckBox) findViewById(R.id.tipificacionD);
+        mTipificacionCheckboxE = (CheckBox) findViewById(R.id.tipificacionE);
+
         tv = (TextView) findViewById(R.id.info);
     }
 
@@ -73,8 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 == PackageManager.PERMISSION_GRANTED) {
 
             mMap.setMyLocationEnabled(true);
-
-            // initMap();
+            initMap();
 
         }else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -137,7 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /** Se inicializan los recorridos del mapa. */
     private void initRecorridos(){
         recorridos = Generator.generateRecorridos(data,mMap);
-        //verRecorridos(false);
+        recorridos.ocultarTodo();
     }
 
     //Resultado de la solicitud de permisos
@@ -163,18 +171,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /** Controla el evento del Toggle que muestra u oculta los recorridos*/
     public void onTipificacionToggled(View view) {
         if (mTipificacionCheckbox.isChecked()) {
-            //verRecorridos(true);
-
-            initMap();
+            recorridos.mostrarRecorridos("A");
         }else {
-            mMap.clear();
-            // verRecorridos(false);
+            recorridos.ocultarRecorridos("A");
         }
     }
-    /** Muestra u oculta los recorridos.  */
-    private void verRecorridos(boolean visible){
-        for (int i = 0; i < recorridos.size(); i++) {
-            recorridos.get(i).setVisible(visible);
+    /** Controla el evento del Toggle que muestra u oculta los recorridos*/
+    public void onTipificacionToggledB(View view) {
+        if (mTipificacionCheckboxB.isChecked()) {
+            recorridos.mostrarRecorridos("B");
+        }else {
+            recorridos.ocultarRecorridos("B");
         }
     }
+    /** Controla el evento del Toggle que muestra u oculta los recorridos*/
+    public void onTipificacionToggledC(View view) {
+        if (mTipificacionCheckboxC.isChecked()) {
+            recorridos.mostrarRecorridos("C");
+        }else {
+            recorridos.ocultarRecorridos("C");
+        }
+    }
+    /** Controla el evento del Toggle que muestra u oculta los recorridos*/
+    public void onTipificacionToggledD(View view) {
+        if (mTipificacionCheckboxD.isChecked()) {
+            recorridos.mostrarRecorridos("D");
+        }else {
+            recorridos.ocultarRecorridos("D");
+        }
+    }
+    /** Controla el evento del Toggle que muestra u oculta los recorridos*/
+    public void onTipificacionToggledE(View view) {
+        if (mTipificacionCheckboxE.isChecked()) {
+            recorridos.mostrarRecorridos("E");
+        }else {
+            recorridos.ocultarRecorridos("E");
+        }
+    }
+
+
 }
