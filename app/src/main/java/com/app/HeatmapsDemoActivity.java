@@ -92,17 +92,22 @@ public class HeatmapsDemoActivity extends BaseDemoActivity implements Coordinato
      * Also maps to the URL of the data set for attribution
      */
     private HashMap<String, DataSet> mLists = new HashMap<String, DataSet>();
-    private Data data;
 
     @Override
     protected int getLayoutId() {
         return R.layout.heatmaps_demo;
     }
 
+    /**
+     * Este metodo se encarga de crear la vista, donde se mostraran los distintos punts
+     * pertenecientes a cada mapa de calor
+     */
     @Override
     protected void startDemo() {
+        // Se setea el centro del mapa
         getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-25, 143), 4));
 
+        // Se realiza la peticion para obtener las ciudades.
         HttpClient httpClient = new HttpClient(this.getApplicationContext(),this);
         httpClient.sendRequest(getString(R.string.base_url));
 
@@ -120,12 +125,15 @@ public class HeatmapsDemoActivity extends BaseDemoActivity implements Coordinato
         spinner.setOnItemSelectedListener(new SpinnerActivity());
 
         try {
+            // A la lista se agrega el titulo y el DataSet, este DataSet solo tiene
+            // una lista de puntos y un String (que todabia nose para que sirve, porque en los primeros 2
+            // mLists.put() solo lee datos locales)
             mLists.put(getString(R.string.police_stations), new DataSet(readItems(R.raw.police),
                     getString(R.string.police_stations_url)));
             mLists.put(getString(R.string.medicare), new DataSet(readItems(R.raw.medicare),
                     getString(R.string.medicare_url)));
 
-
+            // Ahora se agregan todos los puntos Que se encuentran en el Data.
             ArrayList<LatLng> listAllPoints = Generator.getAllPoints(Data.getInstance());
             mLists.put(getString(R.string.all_points), new DataSet(listAllPoints,
                     getString(R.string.all_points_url)));
@@ -170,8 +178,14 @@ public class HeatmapsDemoActivity extends BaseDemoActivity implements Coordinato
         mDefaultOpacity = !mDefaultOpacity;
     }
 
+    /**
+     * Agrega una lista de puntos.
+     * @param list
+     */
     @Override
     public void addList(ArrayList<LatLng> list) {
+        // Ahora se agregan las ciudades. Recordar que debe agregar el primer string a
+        // el  <string-array name="heatmaps_datasets_array">
         mLists.put(getString(R.string.cities), new DataSet(list,
                 getString(R.string.base_url)));
     }
@@ -206,6 +220,8 @@ public class HeatmapsDemoActivity extends BaseDemoActivity implements Coordinato
         }
     }// end class
 
+    // Este metodo solo permite leer los json guardados en la carpeta raw. Posiblemente sirva
+    // para la nueva consulta.
     // Datasets from http://data.gov.au
     private ArrayList<LatLng> readItems(int resource) throws JSONException {
         ArrayList<LatLng> list = new ArrayList<LatLng>();
