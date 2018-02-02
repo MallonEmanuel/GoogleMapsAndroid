@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.http.HttpClient;
+import com.app.http.HttpCliente;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlay;
@@ -41,7 +42,6 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -105,6 +105,11 @@ public class HeatmapsDemoActivity extends BaseDemoActivity implements Coordinato
 
         HttpClient httpClient = new HttpClient(this.getApplicationContext(),this);
         httpClient.sendRequest(getString(R.string.base_url));
+
+
+        HttpCliente httpCliente = new HttpCliente(this.getApplicationContext(),this);
+        httpCliente.sendRequest(getString(R.string.simple_json_url));
+
 
         // Set up the spinner/dropdown list
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
