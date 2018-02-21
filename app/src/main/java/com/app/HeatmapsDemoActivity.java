@@ -26,8 +26,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.app.http.HttpClient;
-import com.app.http.HttpCliente;
+import com.app.http.HttpCitiesClient;
+import com.app.http.HttpRadarSearchClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlay;
@@ -108,12 +108,11 @@ public class HeatmapsDemoActivity extends BaseDemoActivity implements Coordinato
         getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-25, 143), 4));
 
         // Se realiza la peticion para obtener las ciudades.
-        HttpClient httpClient = new HttpClient(this.getApplicationContext(),this);
-        httpClient.sendRequest(getString(R.string.base_url));
+        HttpCitiesClient httpCitiesClient = new HttpCitiesClient(this.getApplicationContext(),this,getString(R.string.base_url_cities),getString(R.string.cities));
+        httpCitiesClient.sendRequest();
 
-
-        HttpCliente httpCliente = new HttpCliente(this.getApplicationContext(),this);
-        httpCliente.sendRequest(getString(R.string.simple_json_url));
+        HttpRadarSearchClient httpRadarSearchClient = new HttpRadarSearchClient(this.getApplicationContext(),this,getString(R.string.radar_search_points_url), getString(R.string.radar_search_points));
+        httpRadarSearchClient.sendRequest();
 
 
         // Set up the spinner/dropdown list
@@ -183,11 +182,10 @@ public class HeatmapsDemoActivity extends BaseDemoActivity implements Coordinato
      * @param list
      */
     @Override
-    public void addList(ArrayList<LatLng> list) {
+    public void addList(ArrayList<LatLng> list, String url, String title) {
         // Ahora se agregan las ciudades. Recordar que debe agregar el primer string a
         // el  <string-array name="heatmaps_datasets_array">
-        mLists.put(getString(R.string.cities), new DataSet(list,
-                getString(R.string.base_url)));
+        mLists.put(title, new DataSet(list, url));
     }
 
     // Dealing with spinner choices

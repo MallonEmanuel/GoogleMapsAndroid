@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 public interface Coordinator {
 
-    void addList(ArrayList<LatLng> list);
+    void addList(ArrayList<LatLng> list, String url , String title);
 }

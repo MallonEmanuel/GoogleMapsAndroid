@@ -18,34 +18,24 @@ import java.util.ArrayList;
  * Para mostrar los puntos como deseas, debes crear una clase parecida a esta, para hacer la peticion
  * con sendRequest() y obtiene el resultado con onSuccess() "metodo obligado a implementar por HttpResponseHandler"
  */
-public class HttpClient implements HttpResponseHandler{
+public abstract class HttpClient implements HttpResponseHandler{
 
-    Context context;
-    Coordinator coordinator;
+    protected Context context;
+    protected Coordinator coordinator;
+    protected String base_url;
+    protected String title;
 
-    public HttpClient(Context context, Coordinator coordinator) {
+    public HttpClient(Context context, Coordinator coordinator, String base_url, String title) {
         this.context = context;
         this.coordinator = coordinator;
+        this.base_url = base_url;
+        this.title =title;
     }
 
     /**
      * Envia una peticion a una URL
-     * @param url donde se realiza la peticion
      */
-    public void sendRequest(String url){
-        HttpHandler http = new HttpHandler(url ,HttpHandler.GET_REQUEST);
-        // Se agregan los parametros.
-        http.addParams("north","1");
-        http.addParams("south","9.9");
-        http.addParams("east","22.4");
-        http.addParams("west","55.2");
-        http.addParams("lang","es");
-        http.addParams("username","mallon");
-        // Se setea el listener, es decir que esta clase se encargara de el resultado de
-        // la consulta. Muy bien podria ser otra clase, pero asi se mantiene mas simple.
-        http.setListener(this);
-        http.sendRequest();
-    }
+    public abstract void sendRequest();
 
     /**
      * En caso de que la consulta sea exitosa. Se lee el Json
@@ -58,19 +48,6 @@ public class HttpClient implements HttpResponseHandler{
     @Override
     public void onSuccess(Object data) throws JSONException {
 
-        Log.e("LOG",data.toString());// Se muestra la informacion obtenida en consola.
-        JSONObject json = (JSONObject) data; // Se obtiene el Json
-        JSONArray array = json.getJSONArray("geonames");// Se obtiene el Arreglo dentro del json
-        ArrayList<LatLng> list = new ArrayList<LatLng>();
-
-        // Ahora obtenemos los puntos de cada objeto en el arreglo.
-        for (int n = 0; n < array.length(); n++) {
-            JSONObject object = array.getJSONObject(n);
-            list.add(new LatLng(object.getDouble("lat"),object.getDouble("lng")));
-        }
-        // se agrega la lista de puntos. Para crear otro conjunto de puntos se debe
-        // crear otro metodo parecido a coordinator.addList().
-        coordinator.addList(list);
     }
 
     @Override

@@ -32,7 +32,7 @@
         <item>@string/medicare</item>
         <item>@string/cities</item>
         <item>@string/all_points</item>
-        <item>@string/simple_json</item>
+        <item>@string/radar_search_points</item>
     </string-array>
 
 
@@ -40,13 +40,13 @@
     <string name="medicare">Medicare Offices</string>
     <string name="cities">Cities</string>
     <string name="all_points">Todos los puntos</string>
-    <string name="simple_json">Json simple</string>
+    <string name="radar_search_points">Json simple</string>
 
 
     <string name="police_stations_url">http://data.gov.au/dataset/police-station-locations/resource/76110b24-0f0a-4c29-9583-3f99eaba486c</string>
     <string name="medicare_url">http://data.gov.au/dataset/location-of-medicare-offices/resource/5d38e1be-4011-49c4-8b8b-75405eeb1088</string>
-    <string name="base_url">http://api.geonames.org/citiesJSON?</string>
+    <string name="base_url_cities">http://api.geonames.org/citiesJSON?</string>
     <string name="all_points_url">All Points</string>
-    <string name="simple_json_url">https://agrupacionupiicsa.000webhostapp.com/royer/radar_search.json</string>
+    <string name="radar_search_points_url">https://agrupacionupiicsa.000webhostapp.com/royer/radar_search.json</string>
 
 </resources>
