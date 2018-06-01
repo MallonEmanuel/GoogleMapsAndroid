@@ -71,7 +71,7 @@ public class Generator {
         // RoundCap roundCap =new RoundCap();
         Polyline polyLine = mMap.addPolyline(new PolylineOptions()
                 .addAll(decodedPath)
-                .width(9)
+                .width(7)
                 .geodesic(true)
                 .color(color));
 
