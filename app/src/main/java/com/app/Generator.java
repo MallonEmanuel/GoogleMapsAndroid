@@ -40,6 +40,7 @@ public class Generator {
         return dataSetRecorridos;
     }
 
+
     /**
      * Obtiene los tramos de una lista de Strings
      * @param mMap referencia al mapa google

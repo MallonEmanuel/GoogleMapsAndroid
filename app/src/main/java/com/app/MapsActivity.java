@@ -217,6 +217,8 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onBackPressed() {
         MapsActivity.this.finish();
+
     }
+
 }
 

@@ -3887,6 +3887,7 @@ public class Data {
                 DES_568,DES_569,DES_570,DES_571,DES_572,DES_573,DES_574,DES_575,DES_576,DES_577,DES_578,DES_579,DES_580,
                 DES_581,DES_582,DES_583,DES_584,DES_585,DES_586,DES_587,DES_588,DES_589,DES_590,DES_591,DES_592,DES_593,
                 DES_594,DES_595,DES_596,DES_597
+
         );
 
         this.colores = Arrays.asList(
